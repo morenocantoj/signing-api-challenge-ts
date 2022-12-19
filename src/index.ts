@@ -1,8 +1,8 @@
-import server from './api/server';
+import server from './api/server'
+import { config } from './config'
 
-const port = 3000;
+const port = config.server.port
+
 server.listen(port, () => {
   console.log(`Running signature service on port ${port}`)
-});
-
-
+})
