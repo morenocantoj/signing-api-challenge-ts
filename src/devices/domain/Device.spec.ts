@@ -1,4 +1,5 @@
 import { Device } from './Device'
+import { SignatureAlgorithm } from './SignatureAlgorithm'
 
 describe('Device', () => {
   let device: Device
@@ -8,7 +9,7 @@ describe('Device', () => {
       expect(() => {
         new Device({
           id: 'an-identifier',
-          signatureAlgorithm: 'RSA',
+          signatureAlgorithm: SignatureAlgorithm.RSA,
           signaturesPerformed: -1,
           label: 'a-label',
         })
@@ -20,7 +21,7 @@ describe('Device', () => {
     it('serializes a Device object', () => {
       const id = 'an-identifier'
       const label = 'a-label'
-      const signatureAlgorithm = 'RSA'
+      const signatureAlgorithm = SignatureAlgorithm.RSA
       const signaturesPerformed = 47
       device = new Device({
         id,
@@ -41,7 +42,7 @@ describe('Device', () => {
   describe('create', () => {
     it('returns a new Device object with no signatures performed yet', () => {
       const label = 'a-label'
-      const signatureAlgorithm = 'RSA'
+      const signatureAlgorithm = SignatureAlgorithm.RSA
 
       device = Device.create({ label, signatureAlgorithm })
 

@@ -1,8 +1,9 @@
 import { generateId } from '../../shared/domain/generateId'
+import { SignatureAlgorithm } from './SignatureAlgorithm'
 
 type DeviceAttributes = {
   id: string
-  signatureAlgorithm: string
+  signatureAlgorithm: SignatureAlgorithm
   signaturesPerformed: number
   label?: string
 }
@@ -10,7 +11,7 @@ type DeviceAttributes = {
 export class Device {
   private static MIN_SIGNATURES_PERFORMED = 0
   private id: string
-  private signatureAlgorithm: string
+  private signatureAlgorithm: SignatureAlgorithm
   private signaturesPerformed: number
   private label?: string
 
