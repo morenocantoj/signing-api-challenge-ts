@@ -13,6 +13,9 @@
     "start": "node --es-module-specifier-resolution=node build/server.js"
   },
   "author": "Stefan Kohlbacher",
+  "contributors": [
+    "Jaume Moreno <morenocantoj@gmail.com>"
+  ],
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.2",
