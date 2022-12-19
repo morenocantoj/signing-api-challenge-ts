@@ -1,8 +1,9 @@
-import crypto, { ECKeyPairOptions, RSAKeyPairOptions, KeyFormat } from 'crypto';
+import crypto, { ECKeyPairOptions, RSAKeyPairOptions, KeyFormat } from 'crypto'
+import { config } from '../config'
 
 export interface KeyPair {
-  public: string;
-  private: string;
+  public: string
+  private: string
 }
 
 export const generateEcKeyPair = (): Promise<KeyPair> => {
@@ -10,37 +11,37 @@ export const generateEcKeyPair = (): Promise<KeyPair> => {
     namedCurve: 'secp256k1',
     publicKeyEncoding: {
       type: 'spki',
-      format: 'der'
+      format: 'der',
     },
     privateKeyEncoding: {
       type: 'pkcs8',
-      format: 'der'
-    }
-  };
+      format: 'der',
+    },
+  }
 
   return new Promise<KeyPair>((resolve, reject) => {
     try {
       crypto.generateKeyPair('ec', options, (err, publicKey, privateKey) => {
         if (err) {
-          console.log(`Encountered an error during EC key pair generation: ${err.message}`);
+          console.log(`Encountered an error during EC key pair generation: ${err.message}`)
         }
 
         const keyPair: KeyPair = {
           public: publicKey.toString(),
           private: privateKey.toString(),
-        };
+        }
         // const keyPair: CryptoKeyPair = {
         //   public: publicKey,
         //   private: privateKey,
         // };
-        console.log(`Created EC key pair: ${keyPair}`);
-        resolve(keyPair);
-      });
+        console.log(`Created EC key pair: ${keyPair}`)
+        resolve(keyPair)
+      })
     } catch (e) {
-      console.log(`Failed to generated EC key pair`);
-      reject(e);
+      console.log(`Failed to generated EC key pair`)
+      reject(e)
     }
-  });
+  })
 }
 
 export const generateRsaKeyPair = (): Promise<KeyPair> => {
@@ -49,35 +50,35 @@ export const generateRsaKeyPair = (): Promise<KeyPair> => {
     publicExponent: 0x10101,
     publicKeyEncoding: {
       type: 'pkcs1',
-      format: 'der'
+      format: 'der',
     },
     privateKeyEncoding: {
       type: 'pkcs8',
       format: 'der',
       cipher: 'aes-192-cbc',
-      passphrase: 'fiskaly is AWESOME'
-    }
-  };
+      passphrase: config.crypto.rsa.passphrase,
+    },
+  }
 
   return new Promise<KeyPair>((resolve, reject) => {
     try {
       crypto.generateKeyPair('rsa', options, (err, publicKey, privateKey) => {
         if (err) {
-          console.log(`Encountered an error during RSA key pair generation: ${err.message}`);
+          console.log(`Encountered an error during RSA key pair generation: ${err.message}`)
         }
 
         const keyPair: KeyPair = {
           public: publicKey.toString(),
           private: privateKey.toString(),
-        };
-        console.log(`Created RSA key pair: ${keyPair}`);
-        resolve(keyPair);
-      });
+        }
+        console.log(`Created RSA key pair: ${keyPair}`)
+        resolve(keyPair)
+      })
     } catch (e) {
-      console.log(`Failed to generated RSA key pair`);
-      reject(e);
+      console.log(`Failed to generated RSA key pair`)
+      reject(e)
     }
-  });
+  })
 }
 
 export default function generateKeyPair() {
