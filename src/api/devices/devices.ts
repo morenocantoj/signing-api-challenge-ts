@@ -8,10 +8,15 @@ export const devices = Router()
 
 const createSignatureDevice = new CreateSignatureDevice(devicesRepository)
 
-devices.post('/', async (req, res) => {
-  const deviceCreateDTO = new DeviceCreateDTO(req.body.signature_algorithm, req.body.label)
+devices.post('/', async (req, res, next) => {
+  try {
+    const deviceCreateDTO = new DeviceCreateDTO(req.body.signature_algorithm, req.body.label)
 
-  const deviceCreated = await createSignatureDevice.execute(deviceCreateDTO)
+    const deviceCreated = await createSignatureDevice.execute(deviceCreateDTO)
 
-  return res.status(201).send(DeviceResponseDTO.serialize(deviceCreated))
+    return res.status(201).send(DeviceResponseDTO.serialize(deviceCreated))
+  } catch (error) {
+    next(error)
+    return
+  }
 })
