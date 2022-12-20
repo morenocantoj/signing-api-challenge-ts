@@ -1,4 +1,4 @@
-import server from '../../api/server'
+import server from '../../../api/server'
 import request from 'supertest'
 
 describe('Create a device', () => {
