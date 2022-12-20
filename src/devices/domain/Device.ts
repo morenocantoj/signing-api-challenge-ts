@@ -9,15 +9,15 @@ type DeviceAttributes = {
 }
 
 export class Device {
-  private static MIN_SIGNATURES_PERFORMED = 0
+  private static MIN_SIGNATURES = 0
   private id: string
   private signatureAlgorithm: SignatureAlgorithm
   private signaturesPerformed: number
   private label?: string
 
   constructor(attributes: DeviceAttributes) {
-    if (attributes.signaturesPerformed < Device.MIN_SIGNATURES_PERFORMED) {
-      throw new Error(`Signatures performed can be less than ${Device.MIN_SIGNATURES_PERFORMED}`)
+    if (attributes.signaturesPerformed < Device.MIN_SIGNATURES) {
+      throw new Error(`Signatures performed can be less than ${Device.MIN_SIGNATURES}`)
     }
 
     this.id = attributes.id
