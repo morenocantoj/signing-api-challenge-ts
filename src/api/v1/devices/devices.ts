@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { DeviceCreateDTO } from './dtos/DeviceCreateDTO'
-import { CreateSignatureDevice } from '../../devices/application/use-cases/CreateSignatureDevice'
-import { devicesRepository } from '../../devices/infrastructure/dependencies'
+import { CreateSignatureDevice } from '../../../devices/application/use-cases/CreateSignatureDevice'
+import { devicesRepository } from '../../../devices/infrastructure/dependencies'
 import { DeviceResponseDTO } from './dtos/DeviceResponseDTO'
 
 export const devices = Router()

@@ -1,13 +1,14 @@
-import express from 'express'
+import express, { Router } from 'express'
 import bodyParser from 'body-parser'
-import { devices } from './devices/devices'
+import { devices } from './v1/devices/devices'
 import { errorHandler } from './middlewares/errorHandler'
 
 const server = express()
+const router = Router()
 
 server.use(bodyParser.json())
 
-server.get('/health', (req, res, next) => {
+router.get('/health', (_req, res, _next) => {
   res.status(200)
   res.send(
     JSON.stringify({
@@ -17,7 +18,9 @@ server.get('/health', (req, res, next) => {
   )
 })
 
-server.use('/devices', devices)
+router.use('/devices', devices)
+
+server.use('/v1', router)
 
 server.use(errorHandler)
 

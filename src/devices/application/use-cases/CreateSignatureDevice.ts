@@ -1,5 +1,5 @@
 import { Device } from '../../domain/Device'
-import { DeviceCreateDTO } from '../../../api/devices/dtos/DeviceCreateDTO'
+import { DeviceCreateDTO } from '../../../api/v1/devices/dtos/DeviceCreateDTO'
 import { DeviceRepository } from '../../domain/DeviceRepository'
 
 export class CreateSignatureDevice {

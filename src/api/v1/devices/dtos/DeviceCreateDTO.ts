@@ -1,5 +1,5 @@
-import { SignatureAlgorithm } from '../../../devices/domain/SignatureAlgorithm'
-import { ValidationError } from '../../../shared/domain/errors/ValidationError'
+import { SignatureAlgorithm } from '../../../../devices/domain/SignatureAlgorithm'
+import { ValidationError } from '../../../../shared/domain/errors/ValidationError'
 
 export class DeviceCreateDTO {
   public readonly signatureAlgorithm: SignatureAlgorithm

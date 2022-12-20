@@ -2,7 +2,7 @@ import server from '../../api/server'
 import request from 'supertest'
 
 describe('Create a device', () => {
-  const DEVICES_URL = '/devices'
+  const DEVICES_URL = '/v1/devices'
 
   it('returns a 201 CREATED creating a device', async () => {
     const signatureAlgorithm = 'RSA'
