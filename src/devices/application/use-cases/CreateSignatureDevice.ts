@@ -5,6 +5,7 @@ import { SignatureAlgorithm } from '../../domain/SignatureAlgorithm'
 import { RsaSigner } from '../../infrastructure/RsaSigner'
 import { Signer } from '../../domain/Signer'
 import { SignatureMethodNotFoundError } from '../../domain/errors/SignatureMethodNotFoundError'
+import { EcdsaSigner } from '../../infrastructure/EcdsaSigner'
 
 export class CreateSignatureDevice {
   constructor(private readonly deviceRepository: DeviceRepository) {}
@@ -24,7 +25,7 @@ export class CreateSignatureDevice {
         return RsaSigner.create()
 
       case SignatureAlgorithm.ECC:
-        throw new Error('Not implemented yet')
+        return EcdsaSigner.create()
 
       default:
         throw new SignatureMethodNotFoundError(signatureAlgorithm)
