@@ -4,6 +4,7 @@ import { ErrorCategory, DomainError } from '../../shared/domain/errors/DomainErr
 
 const errorCategoryToHttpCode: Record<ErrorCategory, number> = {
   [ErrorCategory.BAD_REQUEST]: 400,
+  [ErrorCategory.NOT_FOUND]: 404,
   [ErrorCategory.UNKNOWN]: 500,
 }
 

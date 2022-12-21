@@ -9,4 +9,8 @@ export class DeviceRepositoryMemory implements DeviceRepository {
 
     return device
   }
+
+  async find(deviceId: string): Promise<Device | undefined> {
+    return this.devices.find(device => device.getId() === deviceId)
+  }
 }

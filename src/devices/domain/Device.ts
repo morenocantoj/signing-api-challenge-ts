@@ -48,6 +48,10 @@ export class Device {
     }
   }
 
+  getId(): string {
+    return this.id
+  }
+
   signData(data: string): string {
     const moreSecureData = this.increaseDataSecurity(data)
     const dataSigned = this.signer.signData(moreSecureData)
