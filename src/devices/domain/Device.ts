@@ -5,6 +5,7 @@ type DeviceAttributes = {
   id: string
   signer: Signer
   signaturesPerformed: number
+  signaturesHistory: string[]
   label?: string
 }
 
@@ -13,6 +14,7 @@ export class Device {
   private id: string
   private signer: Signer
   private signaturesPerformed: number
+  private signaturesHistory: string[]
   private label?: string
 
   constructor(attributes: DeviceAttributes) {
@@ -23,6 +25,7 @@ export class Device {
     this.id = attributes.id
     this.signer = attributes.signer
     this.signaturesPerformed = attributes.signaturesPerformed
+    this.signaturesHistory = attributes.signaturesHistory
     this.label = attributes.label
   }
 
@@ -32,6 +35,7 @@ export class Device {
       signer: newDeviceAttributes.signer,
       signaturesPerformed: 0,
       label: newDeviceAttributes.label,
+      signaturesHistory: [],
     })
   }
 
@@ -45,9 +49,16 @@ export class Device {
   }
 
   signData(data: string): string {
-    const dataSigned = this.signer.signData(data)
+    const moreSecureData = this.increaseDataSecurity(data)
+    const dataSigned = this.signer.signData(moreSecureData)
+    this.signaturesHistory.push(dataSigned)
     this.signaturesPerformed += 1
 
     return dataSigned
+  }
+
+  private increaseDataSecurity(originalData: string): string {
+    const rearPayload = this.signaturesHistory.at(-1) ?? Buffer.from(this.id).toString('base64')
+    return [this.signaturesPerformed, originalData, rearPayload].join('_')
   }
 }

@@ -7,12 +7,14 @@ export function createDevice({
   id = generateId(),
   label = 'a-label',
   signer = new SignerFake(SignatureAlgorithm.RSA),
+  signaturesHistory = [] as string[],
   signaturesPerformed = 0,
 } = {}): Device {
   return new Device({
     id,
     label,
     signer,
+    signaturesHistory,
     signaturesPerformed,
   })
 }

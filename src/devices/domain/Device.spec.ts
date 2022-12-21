@@ -13,6 +13,7 @@ describe('Device', () => {
           id: 'an-identifier',
           signer: new SignerFake(SignatureAlgorithm.RSA),
           signaturesPerformed: -1,
+          signaturesHistory: [],
           label: 'a-label',
         })
       }).toThrowError()
@@ -66,6 +67,26 @@ describe('Device', () => {
       expect(dataSigned).not.toBeUndefined()
       const deviceSerialized = device.serialize()
       expect(deviceSerialized.signaturesPerformed).toBe(1)
+    })
+
+    it('signs string data based in signatures counter and last signature performed', () => {
+      const signaturesHistory = ['the-last-signature']
+      device = createDevice({ signaturesPerformed: 1, signaturesHistory })
+      const dataToSign = 'dataToBeSigned'
+
+      const dataSigned = device.signData(dataToSign)
+
+      expect(dataSigned).toBe(`1_${dataToSign}_${signaturesHistory[0]}`)
+    })
+
+    it('signs string data based in signatures counter and device id if there are no signatures performed yet', () => {
+      const id = 'an-id'
+      device = createDevice({ id, signaturesPerformed: 0, signaturesHistory: [] })
+      const dataToSign = 'dataToBeSigned'
+
+      const dataSigned = device.signData(dataToSign)
+
+      expect(dataSigned).toBe(`0_${dataToSign}_${Buffer.from(id).toString('base64')}`)
     })
   })
 })
