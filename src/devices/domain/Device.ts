@@ -43,4 +43,11 @@ export class Device {
       label: this.label,
     }
   }
+
+  signData(data: string): string {
+    const dataSigned = this.signer.signData(data)
+    this.signaturesPerformed += 1
+
+    return dataSigned
+  }
 }

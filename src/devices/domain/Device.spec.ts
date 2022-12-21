@@ -1,6 +1,7 @@
 import { Device } from './Device'
 import { SignatureAlgorithm } from './SignatureAlgorithm'
 import { SignerFake } from './SignerFake'
+import { createDevice } from '../../test/factories/createDevice'
 
 describe('Device', () => {
   let device: Device
@@ -24,7 +25,7 @@ describe('Device', () => {
       const label = 'a-label'
       const signatureAlgorithm = SignatureAlgorithm.RSA
       const signaturesPerformed = 47
-      device = new Device({
+      device = createDevice({
         id,
         label,
         signer: new SignerFake(signatureAlgorithm),
@@ -45,13 +46,26 @@ describe('Device', () => {
       const label = 'a-label'
       const signatureAlgorithm = SignatureAlgorithm.RSA
 
-      device = Device.create({ label, signer: new SignerFake(signatureAlgorithm) })
+      device = createDevice({ label, signer: new SignerFake(signatureAlgorithm) })
 
       const deviceSerialized = device.serialize()
       expect(deviceSerialized.id).not.toBeUndefined()
       expect(deviceSerialized.signatureAlgorithm).toBe(signatureAlgorithm)
       expect(deviceSerialized.signaturesPerformed).toBe(0)
       expect(deviceSerialized.label).toBe(label)
+    })
+  })
+
+  describe('signData', () => {
+    it('signs string data and increments signatures performed', () => {
+      device = createDevice({ signaturesPerformed: 0 })
+      const dataToSign = 'dataToBeSigned'
+
+      const dataSigned = device.signData(dataToSign)
+
+      expect(dataSigned).not.toBeUndefined()
+      const deviceSerialized = device.serialize()
+      expect(deviceSerialized.signaturesPerformed).toBe(1)
     })
   })
 })
