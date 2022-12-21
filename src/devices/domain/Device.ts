@@ -1,9 +1,9 @@
 import { generateId } from '../../shared/domain/generateId'
-import { SignatureAlgorithm } from './SignatureAlgorithm'
+import { Signer } from './Signer'
 
 type DeviceAttributes = {
   id: string
-  signatureAlgorithm: SignatureAlgorithm
+  signer: Signer
   signaturesPerformed: number
   label?: string
 }
@@ -11,7 +11,7 @@ type DeviceAttributes = {
 export class Device {
   private static MIN_SIGNATURES = 0
   private id: string
-  private signatureAlgorithm: SignatureAlgorithm
+  private signer: Signer
   private signaturesPerformed: number
   private label?: string
 
@@ -21,17 +21,15 @@ export class Device {
     }
 
     this.id = attributes.id
-    this.signatureAlgorithm = attributes.signatureAlgorithm
+    this.signer = attributes.signer
     this.signaturesPerformed = attributes.signaturesPerformed
     this.label = attributes.label
   }
 
-  static create(
-    newDeviceAttributes: Pick<DeviceAttributes, 'label' | 'signatureAlgorithm'>
-  ): Device {
+  static create(newDeviceAttributes: Pick<DeviceAttributes, 'label' | 'signer'>): Device {
     return new Device({
       id: generateId(),
-      signatureAlgorithm: newDeviceAttributes.signatureAlgorithm,
+      signer: newDeviceAttributes.signer,
       signaturesPerformed: 0,
       label: newDeviceAttributes.label,
     })
@@ -40,7 +38,7 @@ export class Device {
   serialize() {
     return {
       id: this.id,
-      signatureAlgorithm: this.signatureAlgorithm,
+      signatureAlgorithm: this.signer.getSignatureAlgorithm(),
       signaturesPerformed: this.signaturesPerformed,
       label: this.label,
     }

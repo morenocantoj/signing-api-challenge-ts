@@ -18,7 +18,13 @@ export class RsaSigner extends Signer {
     return sign(data, { private: this.privateKey, public: this.publicKey })
   }
 
-  async generateKeyPair() {
+  static async generateKeyPair() {
     return generateRsaKeyPair()
+  }
+
+  static async create(): Promise<RsaSigner> {
+    const keyPair = await RsaSigner.generateKeyPair()
+
+    return new RsaSigner(keyPair.private, keyPair.public)
   }
 }
