@@ -1,5 +1,5 @@
 import crypto, { ECKeyPairOptions, RSAKeyPairOptions, KeyFormat } from 'crypto'
-import { config } from '../config'
+import { config } from '../../../config'
 
 export interface KeyPair {
   public: string

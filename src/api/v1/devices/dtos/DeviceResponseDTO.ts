@@ -1,5 +1,5 @@
 import { Device } from '../../../../devices/domain/Device'
-import { SignatureAlgorithm } from '../../../../devices/domain/SignatureAlgorithm'
+import { SignatureAlgorithm } from '../../../../signers/domain/SignatureAlgorithm'
 
 export class DeviceResponseDTO {
   id!: string

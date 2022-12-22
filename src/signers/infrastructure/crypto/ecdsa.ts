@@ -1,12 +1,12 @@
 import { KeyPair } from './generation'
 import crypto from 'crypto'
-import { config } from '../config'
+import { config } from '../../../config'
 
 export default function sign(dataToBeSigned: string, keyPair: KeyPair): string {
   try {
     const cipher = crypto.createCipheriv(
-      'aes-192-cbc',
-      crypto.scryptSync(keyPair.private, config.crypto.salt, 24),
+      'aes-256-gcm',
+      crypto.scryptSync(keyPair.private, config.crypto.salt, 32),
       crypto.randomBytes(16)
     )
     let encrypted = cipher.update(dataToBeSigned)

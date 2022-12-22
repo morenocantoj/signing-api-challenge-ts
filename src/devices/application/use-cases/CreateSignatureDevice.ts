@@ -1,11 +1,11 @@
 import { Device } from '../../domain/Device'
 import { DeviceCreateDTO } from '../../../api/v1/devices/dtos/DeviceCreateDTO'
 import { DeviceRepository } from '../../domain/DeviceRepository'
-import { SignatureAlgorithm } from '../../domain/SignatureAlgorithm'
-import { RsaSigner } from '../../infrastructure/RsaSigner'
-import { Signer } from '../../domain/Signer'
+import { SignatureAlgorithm } from '../../../signers/domain/SignatureAlgorithm'
+import { Signer } from '../../../signers/domain/Signer'
 import { SignatureMethodNotFoundError } from '../../domain/errors/SignatureMethodNotFoundError'
-import { EcdsaSigner } from '../../infrastructure/EcdsaSigner'
+import { RsaSigner } from '../../../signers/infrastructure/RsaSigner'
+import { EcdsaSigner } from '../../../signers/infrastructure/EcdsaSigner'
 
 export class CreateSignatureDevice {
   constructor(private readonly deviceRepository: DeviceRepository) {}

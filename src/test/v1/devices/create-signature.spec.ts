@@ -29,4 +29,13 @@ describe('Create a signature', () => {
     expect(response.body.signature).not.toBeUndefined()
     expect(response.body.signature).not.toEqual(dataToSign)
   })
+
+  it('returns a 404 if no device is found', async () => {
+    await app
+      .post(SIGNING_DEVICE_URL('unexistent-device-id'))
+      .send({
+        data: 'whatever',
+      })
+      .expect(404)
+  })
 })

@@ -1,7 +1,7 @@
-import sign from '../../crypto/ecdsa'
-import { generateEcKeyPair } from '../../crypto/generation'
-import { SignatureAlgorithm } from '../domain/SignatureAlgorithm'
-import { Signer } from '../domain/Signer'
+import sign from './crypto/ecdsa'
+import { generateEcKeyPair } from './crypto/generation'
+import { SignatureAlgorithm } from '../../signers/domain/SignatureAlgorithm'
+import { Signer } from '../../signers/domain/Signer'
 
 export class EcdsaSigner extends Signer {
   private privateKey: string

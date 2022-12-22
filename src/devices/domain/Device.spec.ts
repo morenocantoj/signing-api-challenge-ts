@@ -1,7 +1,7 @@
 import { Device } from './Device'
-import { SignatureAlgorithm } from './SignatureAlgorithm'
-import { SignerFake } from './SignerFake'
+import { SignatureAlgorithm } from '../../signers/domain/SignatureAlgorithm'
 import { createDevice } from '../../test/factories/createDevice'
+import { SignerFake } from '../../signers/domain/SignerFake'
 
 describe('Device', () => {
   let device: Device

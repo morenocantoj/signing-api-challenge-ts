@@ -1,5 +1,5 @@
 import { generateId } from '../../shared/domain/generateId'
-import { Signer } from './Signer'
+import { Signer } from '../../signers/domain/Signer'
 
 type DeviceAttributes = {
   id: string

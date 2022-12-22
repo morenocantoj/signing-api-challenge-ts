@@ -1,7 +1,7 @@
-import { generateRsaKeyPair } from '../../crypto/generation'
-import sign from '../../crypto/rsa'
-import { SignatureAlgorithm } from '../domain/SignatureAlgorithm'
-import { Signer } from '../domain/Signer'
+import { generateRsaKeyPair } from './crypto/generation'
+import sign from './crypto/rsa'
+import { SignatureAlgorithm } from '../../signers/domain/SignatureAlgorithm'
+import { Signer } from '../../signers/domain/Signer'
 
 export class RsaSigner extends Signer {
   private privateKey: string

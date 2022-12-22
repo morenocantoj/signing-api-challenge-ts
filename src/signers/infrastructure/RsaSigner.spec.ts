@@ -1,4 +1,4 @@
-import { SignatureAlgorithm } from '../domain/SignatureAlgorithm'
+import { SignatureAlgorithm } from '../../signers/domain/SignatureAlgorithm'
 import { RsaSigner } from './RsaSigner'
 
 describe('RsaSigner', () => {

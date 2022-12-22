@@ -1,8 +1,8 @@
 import { Device } from '../../devices/domain/Device'
 import { generateId } from '../../shared/domain/generateId'
-import { SignerFake } from '../../devices/domain/SignerFake'
-import { SignatureAlgorithm } from '../../devices/domain/SignatureAlgorithm'
-import { Signer } from '../../devices/domain/Signer'
+import { SignatureAlgorithm } from '../../signers/domain/SignatureAlgorithm'
+import { Signer } from '../../signers/domain/Signer'
+import { SignerFake } from '../../signers/domain/SignerFake'
 
 export function createDevice({
   id = generateId(),

@@ -1,4 +1,4 @@
-import { SignatureAlgorithm } from '../../domain/SignatureAlgorithm'
+import { SignatureAlgorithm } from '../../../signers/domain/SignatureAlgorithm'
 import { DeviceCreateDTO } from '../../../api/v1/devices/dtos/DeviceCreateDTO'
 import { CreateSignatureDevice } from './CreateSignatureDevice'
 import { DeviceRepositoryMemory } from '../../infrastructure/DeviceRepositoryMemory'
