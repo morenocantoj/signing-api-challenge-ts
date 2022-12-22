@@ -13,6 +13,8 @@ export class CreateSignature {
     const device = await findDeviceByIdOrError(this.deviceRepository, deviceId)
 
     const dataSigned = device.signData(signatureCreateDTO.deviceId)
+    await this.deviceRepository.save(device)
+
     return dataSigned
   }
 }
