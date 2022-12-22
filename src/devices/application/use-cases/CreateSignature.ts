@@ -1,6 +1,4 @@
-import { Device } from '../../domain/Device'
 import { DeviceRepository } from '../../domain/DeviceRepository'
-import { DeviceNotFoundError } from '../../domain/errors/DeviceNotFoundError'
 import { findDeviceByIdOrError } from '../../domain/services/findDeviceById'
 
 export class SignatureCreateDTO {
