@@ -12,7 +12,7 @@ describe('EcdsaSigner', () => {
     })
   })
 
-  describe('signData', () => {
+  describe('sign', () => {
     it('returns data codified', () => {
       const stringToCodify = 'something'
       signer = new EcdsaSigner('privateKey', 'publicKey')

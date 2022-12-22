@@ -1,9 +1,11 @@
 import { SignatureAlgorithm } from './SignatureAlgorithm'
 import { Signer } from './Signer'
 
-export class SignerFake extends Signer {
-  constructor(signatureAlgorithm = SignatureAlgorithm.RSA) {
-    super(signatureAlgorithm)
+export class SignerFake implements Signer {
+  constructor(public readonly signatureAlgorithm = SignatureAlgorithm.RSA) {}
+
+  getSignatureAlgorithm(): SignatureAlgorithm {
+    return this.signatureAlgorithm
   }
 
   sign(data: string) {

@@ -12,7 +12,7 @@ describe('RsaSigner', () => {
     })
   })
 
-  describe('signData', () => {
+  describe('sign', () => {
     it('returns data codified', () => {
       const stringToCodify = 'something'
       signer = new RsaSigner('privateKey', 'publicKey')

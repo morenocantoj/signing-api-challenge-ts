@@ -3,15 +3,17 @@ import { generateEcKeyPair } from './crypto/generation'
 import { SignatureAlgorithm } from '../../signers/domain/SignatureAlgorithm'
 import { Signer } from '../../signers/domain/Signer'
 
-export class EcdsaSigner extends Signer {
+export class EcdsaSigner implements Signer {
   private privateKey: string
   private publicKey: string
 
   constructor(privateKey: string, publicKey: string) {
-    super(SignatureAlgorithm.ECC)
-
     this.privateKey = privateKey
     this.publicKey = publicKey
+  }
+
+  getSignatureAlgorithm(): SignatureAlgorithm {
+    return SignatureAlgorithm.ECC
   }
 
   sign(data: string) {

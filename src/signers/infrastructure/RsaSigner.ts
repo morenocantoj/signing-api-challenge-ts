@@ -3,15 +3,17 @@ import sign from './crypto/rsa'
 import { SignatureAlgorithm } from '../../signers/domain/SignatureAlgorithm'
 import { Signer } from '../../signers/domain/Signer'
 
-export class RsaSigner extends Signer {
+export class RsaSigner implements Signer {
   private privateKey: string
   private publicKey: string
 
   constructor(privateKey: string, publicKey: string) {
-    super(SignatureAlgorithm.RSA)
-
     this.privateKey = privateKey
     this.publicKey = publicKey
+  }
+
+  getSignatureAlgorithm(): SignatureAlgorithm {
+    return SignatureAlgorithm.RSA
   }
 
   sign(data: string) {
