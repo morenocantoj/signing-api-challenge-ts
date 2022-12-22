@@ -5,14 +5,16 @@ export class DeviceRepositoryMemory implements DeviceRepository {
   constructor(private readonly devices: Device[] = []) {}
 
   async save(device: Device): Promise<Device> {
-    let storedDevice = await this.find(device.getId())
-    if (!storedDevice) {
+    const storedDeviceIndex = await this.devices.findIndex(
+      deviceStored => deviceStored.getId() === device.getId()
+    )
+    if (!storedDeviceIndex) {
       this.devices.push(device)
-      return device
+    } else {
+      this.devices[storedDeviceIndex] = device
     }
 
-    storedDevice = device
-    return storedDevice
+    return device
   }
 
   async find(deviceId: string): Promise<Device | undefined> {
