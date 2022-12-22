@@ -1,5 +1,5 @@
 import crypto, { ECKeyPairOptions, RSAKeyPairOptions, KeyFormat } from 'crypto'
-import { config } from '../config'
+import { config } from '../../../config'
 
 export interface KeyPair {
   public: string
@@ -30,10 +30,7 @@ export const generateEcKeyPair = (): Promise<KeyPair> => {
           public: publicKey.toString(),
           private: privateKey.toString(),
         }
-        // const keyPair: CryptoKeyPair = {
-        //   public: publicKey,
-        //   private: privateKey,
-        // };
+
         console.log(`Created EC key pair: ${keyPair}`)
         resolve(keyPair)
       })
@@ -79,8 +76,4 @@ export const generateRsaKeyPair = (): Promise<KeyPair> => {
       reject(e)
     }
   })
-}
-
-export default function generateKeyPair() {
-  // TODO: implement key pair generation
 }
