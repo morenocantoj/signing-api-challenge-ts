@@ -11,5 +11,5 @@ export abstract class Signer {
     return this.signatureAlgorithm
   }
 
-  abstract signData(data: string): any
+  abstract sign(data: string): string
 }

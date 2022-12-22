@@ -6,7 +6,7 @@ export class SignerFake extends Signer {
     super(signatureAlgorithm)
   }
 
-  signData(data: string) {
+  sign(data: string) {
     return data
   }
 }

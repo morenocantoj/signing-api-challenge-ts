@@ -58,7 +58,7 @@ export class Device {
 
   signData(data: string): string {
     const moreSecureData = this.increaseDataSecurity(data)
-    const dataSigned = this.signer.signData(moreSecureData)
+    const dataSigned = this.signer.sign(moreSecureData)
     this.signaturesHistory.push(dataSigned)
 
     return dataSigned

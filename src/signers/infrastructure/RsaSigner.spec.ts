@@ -17,7 +17,7 @@ describe('RsaSigner', () => {
       const stringToCodify = 'something'
       signer = new RsaSigner('privateKey', 'publicKey')
 
-      const stringCodified = signer.signData(stringToCodify)
+      const stringCodified = signer.sign(stringToCodify)
 
       expect(stringToCodify).not.toEqual(stringCodified)
     })

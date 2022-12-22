@@ -14,7 +14,7 @@ export class RsaSigner extends Signer {
     this.publicKey = publicKey
   }
 
-  signData(data: string) {
+  sign(data: string) {
     return sign(data, { private: this.privateKey, public: this.publicKey })
   }
 
