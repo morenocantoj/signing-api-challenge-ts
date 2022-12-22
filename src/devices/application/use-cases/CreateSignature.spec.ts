@@ -28,7 +28,7 @@ describe('CreateSignature', () => {
   it('increments device signature counter and signature history when signing data', async () => {
     const deviceId = 'device-id'
     const dataToSign = 'data-to-sign'
-    const device = createDevice({ id: deviceId, signaturesPerformed: 0 })
+    const device = createDevice({ id: deviceId, signaturesHistory: [] })
     deviceRepositoryMemory = new DeviceRepositoryMemory([device])
     createSignature = new CreateSignature(deviceRepositoryMemory)
 

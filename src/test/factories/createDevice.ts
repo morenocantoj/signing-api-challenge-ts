@@ -9,13 +9,11 @@ export function createDevice({
   label = 'a-label',
   signer = new SignerFake(SignatureAlgorithm.RSA) as Signer,
   signaturesHistory = [] as string[],
-  signaturesPerformed = 0,
 } = {}): Device {
   return new Device({
     id,
     label,
     signer,
     signaturesHistory,
-    signaturesPerformed,
   })
 }

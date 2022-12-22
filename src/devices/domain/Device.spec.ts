@@ -6,31 +6,17 @@ import { createDevice } from '../../test/factories/createDevice'
 describe('Device', () => {
   let device: Device
 
-  describe('constructor', () => {
-    it('throws an error if trying to create a Device with signaturesPerformed below 0', () => {
-      expect(() => {
-        new Device({
-          id: 'an-identifier',
-          signer: new SignerFake(SignatureAlgorithm.RSA),
-          signaturesPerformed: -1,
-          signaturesHistory: [],
-          label: 'a-label',
-        })
-      }).toThrowError()
-    })
-  })
-
   describe('serialize', () => {
     it('serializes a Device object', () => {
       const id = 'an-identifier'
       const label = 'a-label'
       const signatureAlgorithm = SignatureAlgorithm.RSA
-      const signaturesPerformed = 47
+      const signaturesHistory = ['one-sign', 'another-sighn']
       device = createDevice({
         id,
         label,
         signer: new SignerFake(signatureAlgorithm),
-        signaturesPerformed,
+        signaturesHistory,
       })
 
       const deviceSerialized = device.serialize()
@@ -38,7 +24,7 @@ describe('Device', () => {
       expect(deviceSerialized.id).toBe(id)
       expect(deviceSerialized.label).toBe(label)
       expect(deviceSerialized.signatureAlgorithm).toBe(signatureAlgorithm)
-      expect(deviceSerialized.signaturesPerformed).toBe(signaturesPerformed)
+      expect(deviceSerialized.signaturesPerformed).toBe(signaturesHistory.length)
     })
   })
 
@@ -59,7 +45,7 @@ describe('Device', () => {
 
   describe('signData', () => {
     it('signs string data and increments signatures performed', () => {
-      device = createDevice({ signaturesPerformed: 0 })
+      device = createDevice({ signaturesHistory: [] })
       const dataToSign = 'dataToBeSigned'
 
       const dataSigned = device.signData(dataToSign)
@@ -71,7 +57,7 @@ describe('Device', () => {
 
     it('signs string data based in signatures counter and last signature performed', () => {
       const signaturesHistory = ['the-last-signature']
-      device = createDevice({ signaturesPerformed: 1, signaturesHistory })
+      device = createDevice({ signaturesHistory })
       const dataToSign = 'dataToBeSigned'
 
       const dataSigned = device.signData(dataToSign)
@@ -81,7 +67,7 @@ describe('Device', () => {
 
     it('signs string data based in signatures counter and device id if there are no signatures performed yet', () => {
       const id = 'an-id'
-      device = createDevice({ id, signaturesPerformed: 0, signaturesHistory: [] })
+      device = createDevice({ id, signaturesHistory: [] })
       const dataToSign = 'dataToBeSigned'
 
       const dataSigned = device.signData(dataToSign)
