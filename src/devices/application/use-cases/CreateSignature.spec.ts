@@ -1,7 +1,8 @@
 import { DeviceNotFoundError } from '../../domain/errors/DeviceNotFoundError'
 import { DeviceRepositoryMemory } from '../../infrastructure/DeviceRepositoryMemory'
-import { CreateSignature, SignatureCreateDTO } from './CreateSignature'
+import { CreateSignature } from './CreateSignature'
 import { createDevice } from '../../../test/factories/createDevice'
+import { SignatureCreateDTO } from '../../../api/v1/devices/dtos/SignatureCreateDTO'
 
 describe('CreateSignature', () => {
   let deviceRepositoryMemory: DeviceRepositoryMemory
@@ -19,7 +20,7 @@ describe('CreateSignature', () => {
     deviceRepositoryMemory = new DeviceRepositoryMemory([device])
     createSignature = new CreateSignature(deviceRepositoryMemory)
 
-    const dataSigned = await createSignature.execute(new SignatureCreateDTO(deviceId, dataToSign))
+    const dataSigned = await createSignature.execute(deviceId, new SignatureCreateDTO(dataToSign))
 
     expect(dataSigned).not.toBeUndefined()
   })
@@ -31,7 +32,7 @@ describe('CreateSignature', () => {
     deviceRepositoryMemory = new DeviceRepositoryMemory([device])
     createSignature = new CreateSignature(deviceRepositoryMemory)
 
-    const dataSigned = await createSignature.execute(new SignatureCreateDTO(deviceId, dataToSign))
+    const dataSigned = await createSignature.execute(deviceId, new SignatureCreateDTO(dataToSign))
 
     const deviceSerialized = device.serialize()
     expect(deviceSerialized.signaturesPerformed).toBeGreaterThan(0)
@@ -44,7 +45,7 @@ describe('CreateSignature', () => {
     const dataToSign = 'data-to-sign'
 
     await expect(
-      createSignature.execute(new SignatureCreateDTO(deviceId, dataToSign))
+      createSignature.execute(deviceId, new SignatureCreateDTO(dataToSign))
     ).rejects.toThrow(DeviceNotFoundError)
   })
 })
