@@ -8,7 +8,7 @@ export class DeviceRepositoryMemory implements DeviceRepository {
     const storedDeviceIndex = await this.devices.findIndex(
       deviceStored => deviceStored.getId() === device.getId()
     )
-    if (!storedDeviceIndex) {
+    if (storedDeviceIndex < 0) {
       this.devices.push(device)
     } else {
       this.devices[storedDeviceIndex] = device

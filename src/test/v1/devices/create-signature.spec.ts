@@ -5,11 +5,13 @@ describe('Create a signature', () => {
   const DEVICES_URL = '/v1/devices'
   const SIGNING_DEVICE_URL = (deviceId: string) => `${DEVICES_URL}/${deviceId}/sign`
 
+  const app = request(server)
+
   it('returns a 201 CREATED creating a signature', async () => {
     const signatureAlgorithm = 'RSA'
     const label = 'myFirstDevice'
     const dataToSign = 'data-to-sign'
-    const deviceCreatedResponse = await request(server)
+    const deviceCreatedResponse = await app
       .post(DEVICES_URL)
       .send({
         signature_algorithm: signatureAlgorithm,
@@ -17,7 +19,7 @@ describe('Create a signature', () => {
       })
       .expect(201)
 
-    const response = await request(server)
+    const response = await app
       .post(SIGNING_DEVICE_URL(deviceCreatedResponse.body.id))
       .send({
         data: dataToSign,
