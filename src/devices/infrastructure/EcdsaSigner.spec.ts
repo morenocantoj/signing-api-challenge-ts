@@ -5,10 +5,10 @@ describe('EcdsaSigner', () => {
   let signer: EcdsaSigner
 
   describe('getSignatureAlgorithm', () => {
-    it('returns RSA', () => {
+    it('returns ECC', () => {
       signer = new EcdsaSigner('privateKey', 'publicKey')
 
-      expect(signer.getSignatureAlgorithm()).toBe(SignatureAlgorithm.RSA)
+      expect(signer.getSignatureAlgorithm()).toBe(SignatureAlgorithm.ECC)
     })
   })
 
