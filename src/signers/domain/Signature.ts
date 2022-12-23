@@ -7,6 +7,10 @@ export class Signature {
     return new Signature(generateId(), content, new Date())
   }
 
+  getId(): string {
+    return this.id
+  }
+
   getPerformedDate(): Date {
     return this.performedDate
   }
