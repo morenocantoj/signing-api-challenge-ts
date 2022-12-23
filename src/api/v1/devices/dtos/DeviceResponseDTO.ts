@@ -3,8 +3,8 @@ import { SignatureAlgorithm } from '../../../../signers/domain/SignatureAlgorith
 
 export class DeviceResponseDTO {
   id!: string
-  signatureAlgorithm!: SignatureAlgorithm
-  signaturesPerformed!: number
+  signature_algorithm!: SignatureAlgorithm
+  signatures_performed!: number
   label?: string
 
   static serialize(device: Device): DeviceResponseDTO {
@@ -12,8 +12,8 @@ export class DeviceResponseDTO {
 
     return {
       id: deviceSerialized.id,
-      signatureAlgorithm: deviceSerialized.signatureAlgorithm,
-      signaturesPerformed: deviceSerialized.signaturesPerformed,
+      signature_algorithm: deviceSerialized.signatureAlgorithm,
+      signatures_performed: deviceSerialized.signaturesPerformed,
       label: deviceSerialized.label,
     }
   }

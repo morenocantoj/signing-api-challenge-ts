@@ -15,9 +15,9 @@ describe('Create a device', () => {
 
     expect(response.statusCode).toBe(201)
     expect(response.body.id).not.toBeUndefined()
-    expect(response.body.signatureAlgorithm).toBe(signatureAlgorithm)
+    expect(response.body.signature_algorithm).toBe(signatureAlgorithm)
     expect(response.body.label).toBe(label)
-    expect(response.body.signaturesPerformed).toBe(0)
+    expect(response.body.signatures_performed).toBe(0)
   })
 
   it('returns a 400 error if signature algorithm is not valid', async () => {
