@@ -23,7 +23,7 @@ export class Signature {
     return { id: this.id, content: this.content, performedDate: this.performedDate }
   }
 
-  isOlderThan(signature: Signature): boolean {
+  isNewerThan(signature: Signature): boolean {
     return this.getPerformedDate().getTime() < signature.getPerformedDate().getTime()
   }
 }

@@ -76,4 +76,27 @@ describe('Device', () => {
       expect(dataSigned.getContent()).toBe(`0_${dataToSign}_${Buffer.from(id).toString('base64')}`)
     })
   })
+
+  describe('getLastSignature', () => {
+    it('returns undefined if no signatures are provided', () => {
+      device = createDevice({ signaturesHistory: [] })
+
+      const signature = device.getLastSignature()
+
+      expect(signature).toBeUndefined()
+    })
+
+    it('returns the most recent signature', () => {
+      const oldestSignature = createSignature({ performedDate: new Date('2022-03-25') })
+      const olderSignature = createSignature({ performedDate: new Date('2022-03-26') })
+      const newestSignature = createSignature({ performedDate: new Date('2022-03-27') })
+      device = createDevice({
+        signaturesHistory: [oldestSignature, olderSignature, newestSignature],
+      })
+
+      const signature = device.getLastSignature()
+
+      expect(signature).toBe(newestSignature)
+    })
+  })
 })

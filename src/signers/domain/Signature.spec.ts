@@ -10,7 +10,7 @@ describe('Signature', () => {
       signature = createSignature({ performedDate: olderDate })
       const newerSignature = createSignature({ performedDate: newerDate })
 
-      const result = signature.isOlderThan(newerSignature)
+      const result = signature.isNewerThan(newerSignature)
 
       expect(result).toBe(true)
     })
@@ -21,7 +21,7 @@ describe('Signature', () => {
       signature = createSignature({ performedDate: newerDate })
       const newerSignature = createSignature({ performedDate: olderDate })
 
-      const result = signature.isOlderThan(newerSignature)
+      const result = signature.isNewerThan(newerSignature)
 
       expect(result).toBe(false)
     })

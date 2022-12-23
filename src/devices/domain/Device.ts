@@ -19,6 +19,7 @@ export class Device {
     this.id = attributes.id
     this.signer = attributes.signer
     this.signaturesHistory = attributes.signaturesHistory
+    this.signaturesHistory.sort((a, b) => (a.isNewerThan(b) ? -1 : 1))
     this.label = attributes.label
   }
 
