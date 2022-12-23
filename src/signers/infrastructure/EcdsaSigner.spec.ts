@@ -17,7 +17,7 @@ describe('EcdsaSigner', () => {
       const stringToCodify = 'something'
       signer = new EcdsaSigner('privateKey', 'publicKey')
 
-      const stringCodified = signer.sign(stringToCodify)
+      const stringCodified = signer.sign(stringToCodify).serialize().content
 
       expect(stringToCodify).not.toEqual(stringCodified)
     })

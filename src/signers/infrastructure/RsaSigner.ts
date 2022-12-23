@@ -2,6 +2,7 @@ import { generateRsaKeyPair } from './crypto/generation'
 import sign from './crypto/rsa'
 import { SignatureAlgorithm } from '../../signers/domain/SignatureAlgorithm'
 import { Signer } from '../../signers/domain/Signer'
+import { Signature } from '../domain/Signature'
 
 export class RsaSigner implements Signer {
   private privateKey: string
@@ -17,7 +18,7 @@ export class RsaSigner implements Signer {
   }
 
   sign(data: string) {
-    return sign(data, { private: this.privateKey, public: this.publicKey })
+    return Signature.create(sign(data, { private: this.privateKey, public: this.publicKey }))
   }
 
   static async generateKeyPair() {

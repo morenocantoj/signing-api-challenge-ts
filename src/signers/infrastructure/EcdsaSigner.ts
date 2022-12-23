@@ -2,6 +2,7 @@ import sign from './crypto/ecdsa'
 import { generateEcKeyPair } from './crypto/generation'
 import { SignatureAlgorithm } from '../../signers/domain/SignatureAlgorithm'
 import { Signer } from '../../signers/domain/Signer'
+import { Signature } from '../domain/Signature'
 
 export class EcdsaSigner implements Signer {
   private privateKey: string
@@ -17,7 +18,7 @@ export class EcdsaSigner implements Signer {
   }
 
   sign(data: string) {
-    return sign(data, { private: this.privateKey, public: this.publicKey })
+    return Signature.create(sign(data, { private: this.privateKey, public: this.publicKey }))
   }
 
   static async generateKeyPair() {

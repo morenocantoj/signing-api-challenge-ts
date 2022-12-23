@@ -1,10 +1,11 @@
 import { generateId } from '../../shared/domain/generateId'
 import { Signer } from '../../signers/domain/Signer'
+import { Signature } from '../../signers/domain/Signature'
 
 type DeviceAttributes = {
   id: string
   signer: Signer
-  signaturesHistory: string[]
+  signaturesHistory: Signature[]
   label?: string
 }
 
@@ -12,13 +13,15 @@ export class Device {
   private static MIN_SIGNATURES = 0
   private id: string
   private signer: Signer
-  private signaturesHistory: string[]
+  private signaturesHistory: Signature[]
   private label?: string
 
   constructor(attributes: DeviceAttributes) {
     this.id = attributes.id
     this.signer = attributes.signer
-    this.signaturesHistory = attributes.signaturesHistory
+    this.signaturesHistory = attributes.signaturesHistory.sort((a, b) =>
+      a.isOlderThan(b) ? 1 : -1
+    )
     this.label = attributes.label
   }
 
@@ -44,11 +47,11 @@ export class Device {
     return this.id
   }
 
-  getSignaturesHistory(): string[] {
+  getSignaturesHistory(): Signature[] {
     return this.signaturesHistory
   }
 
-  getLastSignature(): string | undefined {
+  getLastSignature(): Signature | undefined {
     return this.signaturesHistory.at(-1)
   }
 
@@ -56,7 +59,7 @@ export class Device {
     return this.getSignaturesHistory().length
   }
 
-  signData(data: string): string {
+  signData(data: string): Signature {
     const moreSecureData = this.increaseDataSecurity(data)
     const dataSigned = this.signer.sign(moreSecureData)
     this.signaturesHistory.push(dataSigned)
