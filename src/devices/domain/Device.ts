@@ -10,7 +10,6 @@ type DeviceAttributes = {
 }
 
 export class Device {
-  private static MIN_SIGNATURES = 0
   private id: string
   private signer: Signer
   private signaturesHistory: Signature[]
