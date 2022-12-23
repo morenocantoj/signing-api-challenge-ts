@@ -1,9 +1,12 @@
+import { Signature } from '../../../../signers/domain/Signature'
 export class SignatureResponseDTO {
   signature!: string
 
-  static serialize(dataSigned: string): SignatureResponseDTO {
+  static serialize(signature: Signature): SignatureResponseDTO {
+    const signatureSerialized = signature.serialize()
+
     return {
-      signature: dataSigned,
+      signature: signatureSerialized.content,
     }
   }
 }

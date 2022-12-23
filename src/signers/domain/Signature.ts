@@ -11,6 +11,10 @@ export class Signature {
     return this.performedDate
   }
 
+  getContent(): string {
+    return this.content
+  }
+
   serialize() {
     return { id: this.id, content: this.content, performedDate: this.performedDate }
   }

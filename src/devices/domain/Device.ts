@@ -19,9 +19,7 @@ export class Device {
   constructor(attributes: DeviceAttributes) {
     this.id = attributes.id
     this.signer = attributes.signer
-    this.signaturesHistory = attributes.signaturesHistory.sort((a, b) =>
-      a.isOlderThan(b) ? 1 : -1
-    )
+    this.signaturesHistory = attributes.signaturesHistory
     this.label = attributes.label
   }
 
@@ -68,7 +66,8 @@ export class Device {
   }
 
   private increaseDataSecurity(originalData: string): string {
-    const rearPayload = this.getLastSignature() ?? Buffer.from(this.id).toString('base64')
+    const rearPayload =
+      this.getLastSignature()?.getContent() ?? Buffer.from(this.id).toString('base64')
     return [this.getSignaturesPerformed(), originalData, rearPayload].join('_')
   }
 }

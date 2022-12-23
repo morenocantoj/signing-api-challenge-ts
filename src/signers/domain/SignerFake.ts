@@ -1,5 +1,6 @@
 import { SignatureAlgorithm } from './SignatureAlgorithm'
 import { Signer } from './Signer'
+import { Signature } from './Signature'
 
 export class SignerFake implements Signer {
   constructor(public readonly signatureAlgorithm = SignatureAlgorithm.RSA) {}
@@ -9,6 +10,6 @@ export class SignerFake implements Signer {
   }
 
   sign(data: string) {
-    return data
+    return Signature.create(data)
   }
 }
