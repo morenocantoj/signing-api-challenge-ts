@@ -2,6 +2,7 @@ import { Device } from './Device'
 import { SignatureAlgorithm } from '../../signers/domain/SignatureAlgorithm'
 import { createDevice } from '../../test/factories/createDevice'
 import { SignerFake } from '../../signers/domain/SignerFake'
+import { createSignature } from '../../test/factories/createSignature'
 
 describe('Device', () => {
   let device: Device
@@ -11,7 +12,7 @@ describe('Device', () => {
       const id = 'an-identifier'
       const label = 'a-label'
       const signatureAlgorithm = SignatureAlgorithm.RSA
-      const signaturesHistory = ['one-sign', 'another-sighn']
+      const signaturesHistory = [createSignature(), createSignature()]
       device = createDevice({
         id,
         label,
@@ -56,13 +57,13 @@ describe('Device', () => {
     })
 
     it('signs string data based in signatures counter and last signature performed', () => {
-      const signaturesHistory = ['the-last-signature']
+      const signaturesHistory = [createSignature()]
       device = createDevice({ signaturesHistory })
       const dataToSign = 'dataToBeSigned'
 
       const dataSigned = device.signData(dataToSign)
 
-      expect(dataSigned).toBe(`1_${dataToSign}_${signaturesHistory[0]}`)
+      expect(dataSigned.getContent()).toBe(`1_${dataToSign}_${signaturesHistory[0].getContent()}`)
     })
 
     it('signs string data based in signatures counter and device id if there are no signatures performed yet', () => {
@@ -72,7 +73,30 @@ describe('Device', () => {
 
       const dataSigned = device.signData(dataToSign)
 
-      expect(dataSigned).toBe(`0_${dataToSign}_${Buffer.from(id).toString('base64')}`)
+      expect(dataSigned.getContent()).toBe(`0_${dataToSign}_${Buffer.from(id).toString('base64')}`)
+    })
+  })
+
+  describe('getLastSignature', () => {
+    it('returns undefined if no signatures are provided', () => {
+      device = createDevice({ signaturesHistory: [] })
+
+      const signature = device.getLastSignature()
+
+      expect(signature).toBeUndefined()
+    })
+
+    it('returns the most recent signature', () => {
+      const oldestSignature = createSignature({ performedDate: new Date('2022-03-25') })
+      const olderSignature = createSignature({ performedDate: new Date('2022-03-26') })
+      const newestSignature = createSignature({ performedDate: new Date('2022-03-27') })
+      device = createDevice({
+        signaturesHistory: [oldestSignature, olderSignature, newestSignature],
+      })
+
+      const signature = device.getLastSignature()
+
+      expect(signature).toBe(newestSignature)
     })
   })
 })
